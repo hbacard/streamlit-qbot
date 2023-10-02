@@ -74,7 +74,7 @@ This project is a simple chatbot developed using Streamlit, LangChain, and `llam
 2. Install `llama-cpp-python` for mac using the following command:
 
    ```sh
-   CMAKE_ARGS="-DLLAMA_METAL=on" FORCE_CMAKE=1 pip install --upgrade --force-reinstall llama-cpp-python==0.1.83 --no-cache-dir
+   CMAKE_ARGS="-DLLAMA_METAL=on" FORCE_CMAKE=1 pip install --force-reinstall llama-cpp-python==0.1.83 --no-cache-dir
    ```
 
    💡 This will ensure that any previous CPU-only installation will be removed and a new version using Apple Silicon GPU (Metal) will be installed.
