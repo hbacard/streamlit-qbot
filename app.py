@@ -24,14 +24,14 @@ model_path = os.environ.get("MODEL_PATH")
 
 print(model_path)
 n_gpu_layers = 1  # Metal set to 1 is enough. On Linux can get higher (40 for example)
-n_batch = 512 
+n_batch = 512
 llm = LlamaCpp(
     model_path=model_path,
     n_batch=n_batch,
     n_gpu_layers=n_gpu_layers,
     f16_kv=True,
     verbose=True,
-    n_ctx=2048, # Important if you have long input (default value is 512)
+    n_ctx=512,  # Important if you have long input (default value is 512)
     top_k=40,
     top_p=0.95,
     repeat_penalty=1.1,
@@ -40,22 +40,22 @@ llm = LlamaCpp(
 )
 
 
-template = '''
+template = """
 This is a conversation between a human and QBot, a friendly chatbot. QBot is helpful, kind, honest, good at writing, and never fails to answer any requests immediately and with precision.
 
 {history}
 User: {user_input}
 QBot:
-'''
+"""
 
 # Set up the LLMChain, passing in memory
 
 
-prompt = PromptTemplate(input_variables=["history","user_input"], template=template)
+prompt = PromptTemplate(input_variables=["history", "user_input"], template=template)
 llm_chain = LLMChain(llm=llm, prompt=prompt, memory=memory)
 
 # Add a button to clear the chat history
-if st.sidebar.button('Clear History and Restart Chat'):
+if st.sidebar.button("Clear History and Restart Chat"):
     msgs.messages.clear()  # Clear the existing messages
     msgs.add_ai_message(START_CHAT_MSG)  # Add an initial message from the AI
 # Render current messages from StreamlitChatMessageHistory
@@ -68,6 +68,3 @@ if prompt := st.chat_input():
     # Note: new messages are saved to history automatically by Langchain during run
     response = llm_chain.run(prompt)
     st.chat_message("qbot").write(response)
-
-
-
