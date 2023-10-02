@@ -6,7 +6,7 @@ from langchain.llms import LlamaCpp
 import streamlit as st
 import os
 from dotenv import load_dotenv
-
+import time 
 st.set_page_config(page_title="QBot")
 st.title("QBot")
 
@@ -65,6 +65,17 @@ for msg in msgs.messages:
 # If user inputs a new prompt, generate and draw a new response
 if prompt := st.chat_input():
     st.chat_message("user").write(prompt)
+    
     # Note: new messages are saved to history automatically by Langchain during run
     response = llm_chain.run(prompt)
-    st.chat_message("qbot").write(response)
+    with st.chat_message("qbot"):
+        message_placeholder = st.empty()
+        full_response = ""
+        qbot_response = response.strip()
+        # Simulate stream of response with milliseconds delay
+        for chunk in qbot_response.split():
+            full_response += chunk + " "
+            time.sleep(0.05)
+            # Add a blinking cursor to simulate typing
+            message_placeholder.markdown(full_response + "▌")
+        message_placeholder.markdown(full_response)
