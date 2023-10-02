@@ -30,8 +30,8 @@ This project is a simple chatbot developed using Streamlit, LangChain, and `llam
 
 1. Clone the repository to your local machine:
    ```sh
-   git clone <repository-url>
-   cd <repository-directory>
+   git clone https://github.com/hbacard/streamlit-qbot.git
+   cd streamlit-qbot
    ```
 
 
