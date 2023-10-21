@@ -22,7 +22,6 @@ load_dotenv()
 
 model_path = os.environ.get("MODEL_PATH")
 
-print(model_path)
 n_gpu_layers = 1  # Metal set to 1 is enough. On Linux can get higher (40 for example)
 n_batch = 512 
 llm = LlamaCpp(
